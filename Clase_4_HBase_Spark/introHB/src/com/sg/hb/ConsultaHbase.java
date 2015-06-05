@@ -14,24 +14,15 @@ public class ConsultaHbase {
 	public static void main(String[] args) throws IOException, Exception
 	   {
 	   
-	      // Instantiating Configuration class
 	      Configuration config = HBaseConfiguration.create();
+		  HTable table = new HTable(config, "empleados");
 
-	      // Instantiating HTable class
-	      HTable table = new HTable(config, "empleados");
-
-	      // Instantiating Get class
 	      Get g = new Get(Bytes.toBytes("fila1"));
+		  Result result = table.get(g);
 
-	      // Reading the data
-	      Result result = table.get(g);
-
-	      // Reading values from Result class object
 	      byte [] value = result.getValue(Bytes.toBytes("datos"),Bytes.toBytes("nombre"));
+		  byte [] value1 = result.getValue(Bytes.toBytes("datos"),Bytes.toBytes("salario"));
 
-	      byte [] value1 = result.getValue(Bytes.toBytes("datos"),Bytes.toBytes("salario"));
-
-	      // Printing the values
 	      String name = Bytes.toString(value);
 	      String city = Bytes.toString(value1);
 	      
